@@ -1,0 +1,23 @@
+.checkbox {
+  left: 0.75rem;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white-5);
+  position: absolute;
+  z-index: 11;
+
+  &:hover {
+    color: var(--color-white-8);
+  }
+
+  & > svg {
+    height: 20px;
+    width: 20px;
+  }
+
+  &.edit {
+    left: 1.5rem;
+  }
+}

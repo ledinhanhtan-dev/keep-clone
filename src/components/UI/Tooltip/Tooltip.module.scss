@@ -1,0 +1,16 @@
+.tooltip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-amount-half);
+  background-color: hsla(206, 6%, 25%, 0.9);
+  font-family: var(--font-secondary);
+  color: var(--color-white-9);
+  padding: 0.3rem 0.4rem;
+  font-size: 0.75rem;
+  text-align: center;
+  font-weight: 500;
+
+  position: absolute;
+  z-index: 10000;
+}

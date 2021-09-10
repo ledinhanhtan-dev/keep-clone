@@ -1,0 +1,25 @@
+.grab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white-5);
+  position: absolute;
+  margin-top: -1px;
+  left: 0.1rem;
+  z-index: 11;
+  opacity: 0;
+  z-index: 4000;
+
+  cursor: move !important;
+
+  &:focus,
+  &:active,
+  &:hover {
+    cursor: move !important;
+  }
+
+  & > svg {
+    height: 22px;
+    width: 22px;
+  }
+}

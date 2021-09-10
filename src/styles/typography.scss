@@ -1,0 +1,23 @@
+body {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  color: var(--color-white-8);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+h2,
+h3 {
+  font-size: 1rem;
+}

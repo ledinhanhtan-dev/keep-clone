@@ -1,0 +1,22 @@
+@import './styles/base.scss';
+@import './styles/root.scss';
+@import './styles/global.scss';
+@import './styles/typography.scss';
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url(assets/fonts/ProductSans-Regular.ttf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url(assets/fonts/ProductSans-Medium.ttf);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url(assets/fonts/ProductSans-Bold.ttf);
+  font-weight: 700;
+}

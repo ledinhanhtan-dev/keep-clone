@@ -1,0 +1,18 @@
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.5rem 0.25rem;
+  border-bottom-left-radius: var(--radius-amount);
+  border-bottom-right-radius: var(--radius-amount);
+
+  & > button {
+    font-size: 0.95rem;
+  }
+}
+
+.tray {
+  gap: 0.6rem;
+  display: flex;
+  align-items: center;
+}

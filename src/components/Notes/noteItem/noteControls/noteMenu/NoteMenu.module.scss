@@ -1,0 +1,10 @@
+.menu {
+  top: 100px;
+  left: 100px;
+  position: absolute;
+  border-radius: var(--radius-amount-half);
+  box-shadow: var(--shadow-double);
+  background-color: #202124;
+  padding: 0.4rem 0;
+  z-index: 2000;
+}

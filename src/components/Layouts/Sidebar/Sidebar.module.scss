@@ -1,0 +1,10 @@
+.sidebar {
+  width: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > button {
+    color: var(--color-white-8);
+  }
+}

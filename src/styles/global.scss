@@ -1,0 +1,29 @@
+#overlay-root {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+#backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: rgba(#202124, 0.7);
+}
+
+input {
+  background-color: transparent;
+  font-weight: 500;
+  caret-color: white;
+  width: 100%;
+
+  &::placeholder {
+    color: var(--color-white-7);
+  }
+}

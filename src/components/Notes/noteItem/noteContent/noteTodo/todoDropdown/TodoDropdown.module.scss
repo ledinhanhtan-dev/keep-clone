@@ -1,0 +1,48 @@
+.dropdown {
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.5rem;
+  cursor: pointer;
+
+  &:hover .chevron,
+  &:hover .input {
+    color: var(--color-white-9);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 1px;
+    background-color: var(--color-white-1);
+    width: 92.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+  }
+}
+
+.chevron {
+  position: absolute;
+  left: 1.5rem;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white-6);
+  z-index: 100000;
+  margin-top: 0.85rem;
+  & > svg {
+    width: 20px;
+  }
+}
+
+.input {
+  z-index: 10;
+  font-weight: 400;
+  color: var(--color-white-6);
+  padding: 1.25rem 2rem 0.45rem 3.25rem;
+  cursor: pointer;
+  word-spacing: 0.1rem;
+}

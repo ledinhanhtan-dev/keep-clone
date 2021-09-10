@@ -1,0 +1,13 @@
+.square {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  border-radius: var(--radius-amount-half);
+  color: var(--color-white-8);
+  padding: 0.5rem 1.75rem;
+  font-weight: 500;
+
+  &:hover {
+    background-color: var(--color-white-1);
+  }
+}

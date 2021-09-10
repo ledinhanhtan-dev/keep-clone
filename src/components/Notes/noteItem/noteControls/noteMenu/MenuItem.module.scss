@@ -1,0 +1,11 @@
+.item {
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--color-white-9);
+  font-family: var(--font-secondary);
+  padding: 0.4rem 1rem;
+
+  &:hover {
+    background-color: var(--color-white-2);
+  }
+}

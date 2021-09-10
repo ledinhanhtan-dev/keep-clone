@@ -1,0 +1,71 @@
+.item {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    .outer {
+      fill: var(--color-white-9);
+    }
+  }
+}
+
+.tick {
+  width: 15px;
+  position: absolute;
+  color: var(--color-white-6);
+}
+
+/////////////////////////////////////// Colors
+.default {
+  fill: var(--color-default); // 1
+
+  .outer {
+    fill: var(--color-white-4);
+  }
+}
+
+.red {
+  fill: var(--color-red); // 2
+}
+
+.green {
+  fill: var(--color-green); // 3
+}
+
+.orange {
+  fill: var(--color-orange); // 4
+}
+
+.dark-blue {
+  fill: var(--color-dark-blue); // 5
+}
+
+.yellow {
+  fill: var(--color-yellow); // 6
+}
+
+.purple {
+  fill: var(--color-purple); // 7
+}
+
+.brown {
+  fill: var(--color-brown); // 8
+}
+
+.teal {
+  fill: var(--color-teal); // 9
+}
+
+.blue {
+  fill: var(--color-blue); // 10
+}
+
+.pink {
+  fill: var(--color-pink); // 11
+}
+
+.gray {
+  fill: var(--color-gray); // 12
+}

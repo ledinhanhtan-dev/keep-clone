@@ -1,0 +1,10 @@
+.controls {
+  display: flex;
+  align-items: center;
+}
+
+.control {
+  color: var(--color-white-5);
+
+  transition: color var(--transition-duration);
+}

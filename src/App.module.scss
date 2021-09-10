@@ -1,0 +1,11 @@
+.app {
+  position: relative;
+  z-index: 50;
+  height: 100vh;
+}
+
+.content {
+  height: 100%;
+  display: flex;
+  padding-top: 10px;
+}

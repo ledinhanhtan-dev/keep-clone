@@ -1,0 +1,13 @@
+.menu {
+  gap: 0.3rem;
+  display: grid;
+  padding: 0.4rem;
+  position: absolute;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+  border-radius: var(--radius-amount-half);
+  background-color: var(--color-default);
+  width: min-content;
+  z-index: 5000;
+}

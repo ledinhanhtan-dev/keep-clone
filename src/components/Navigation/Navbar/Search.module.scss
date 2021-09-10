@@ -1,0 +1,26 @@
+.search {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+  & > button {
+    position: absolute;
+    margin-left: 0.4rem;
+  }
+
+  & > input {
+    width: 100%;
+    padding-top: 0.9rem;
+    padding-bottom: 1rem;
+    font-weight: 400;
+    caret-color: white;
+    border-radius: var(--radius-amount);
+    background-color: rgba(white, 0.2);
+    padding-left: 3.5rem;
+
+    &::placeholder {
+      color: var(--color-white-8);
+    }
+  }
+}

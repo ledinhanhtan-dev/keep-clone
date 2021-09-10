@@ -1,0 +1,23 @@
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  transform: scale(1.25);
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(white, 0.075);
+  }
+
+  &:focus {
+    border-color: rgba(white, 0.3);
+  }
+
+  & > img {
+    max-width: unset;
+    border-radius: 50%;
+    transform: scale(0.85);
+  }
+}

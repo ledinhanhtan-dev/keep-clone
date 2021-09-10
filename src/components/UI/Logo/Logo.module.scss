@@ -1,0 +1,19 @@
+.logo {
+  a {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    &:active > h1 {
+      text-decoration: underline;
+    }
+  }
+
+  img {
+    height: 40px;
+  }
+
+  h1 {
+    color: white;
+  }
+}

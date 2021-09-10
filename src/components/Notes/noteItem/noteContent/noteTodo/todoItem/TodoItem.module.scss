@@ -1,0 +1,46 @@
+.item {
+  display: flex;
+  position: relative;
+  align-items: center;
+  background-color: var(--card-background-color);
+  transition: all 200ms ease-in-out;
+  z-index: 100000;
+
+  &:hover .grab,
+  &:hover .delete {
+    opacity: 1;
+  }
+
+  & > input {
+    z-index: 10;
+    font-size: 0.875rem;
+    font-weight: 400;
+    padding: 0.5rem 2rem 0.45rem 2.5rem;
+    border-bottom: 0.5px solid transparent;
+    border-top: 0.5px solid transparent;
+
+    &:focus {
+      border-color: var(--color-white-2);
+    }
+  }
+
+  &.dragging {
+    z-index: 4000;
+    transform: scale(1.04);
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  .delete {
+    position: absolute;
+    right: 1rem;
+    z-index: 11;
+    opacity: 0;
+  }
+}
+
+.item.edit {
+  & > input {
+    font-size: 16px;
+    padding-left: 3.35rem;
+  }
+}

@@ -1,0 +1,10 @@
+.item {
+  position: relative;
+}
+
+.pin {
+  position: absolute;
+  z-index: 8000;
+  right: 10px;
+  top: 5px;
+}

@@ -1,0 +1,72 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+svg {
+  fill: currentColor;
+
+  width: 24px;
+  height: 24px;
+
+  path {
+    width: 18px;
+  }
+}
+
+input,
+textarea {
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+button {
+  font-size: inherit;
+  font-family: inherit;
+  background: unset;
+  cursor: pointer;
+  border: none;
+}
+
+select {
+  font-size: inherit;
+  font-family: inherit;
+  background: unset;
+  border: none;
+}
+
+body {
+  background-color: #202124;
+}
