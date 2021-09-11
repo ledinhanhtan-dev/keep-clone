@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useRef } from 'react';
-import { writeDraftText } from 'src/store/slices/draftSlice';
+import { draftWriteText } from 'src/store/slices/draftSlice';
 import { NoteVariation } from 'src/interfaces/INote';
 import { useAppDispatch } from 'src/store/hooks';
 
@@ -20,7 +20,7 @@ const NoteText: React.FC<IProps> = props => {
   }, [variation]);
 
   const textChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(writeDraftText(e.target.value));
+    dispatch(draftWriteText(e.target.value));
   };
 
   const baseClass = classes.text;

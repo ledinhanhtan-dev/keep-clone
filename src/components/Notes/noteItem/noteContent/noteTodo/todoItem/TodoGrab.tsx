@@ -15,8 +15,10 @@ const TodoGrab: React.FC<IProps> = props => {
 
   const classList = `${classes.grab} ${className}`;
 
+  const styleDisplay = display ? {} : { display: 'none' };
+
   return (
-    <div className={classList} style={display ? {} : { display: 'none' }} {...dragHandleProps}>
+    <div className={classList} style={styleDisplay} {...dragHandleProps}>
       <Svg iconId="dots-six" />
     </div>
   );

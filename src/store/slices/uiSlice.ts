@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AppThunk, RootState } from '../store';
-import { resetDraft } from './draftSlice';
+import { draftReset } from './draftSlice';
 
 interface UIState {
   tooltip: { show: boolean; title: string; top: number; left: number };
@@ -124,5 +124,5 @@ export default uiSlice.reducer;
 
 export const hideNoteAddAndResetDraft = (): AppThunk => dispatch => {
   dispatch(hideNoteAdd());
-  dispatch(resetDraft());
+  dispatch(draftReset());
 };

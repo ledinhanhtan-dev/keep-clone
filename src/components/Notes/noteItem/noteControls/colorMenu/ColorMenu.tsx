@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { changeDraftNoteColor, selectDraft } from 'src/store/slices/draftSlice';
+import { draftChangeNoteColor, selectDraft } from 'src/store/slices/draftSlice';
 import { hideColorMenu, selectColorMenu, selectUIState } from 'src/store/slices/uiSlice';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { editCurrentNote } from 'src/store/thunks/notesThunks';
@@ -28,9 +28,9 @@ const ColorMenu: React.FC = () => {
   const noteAddShow = useAppSelector(selectUIState).noteAdd.show;
 
   const changeColorHandler = (colorId: ColorId) => {
-    dispatch(changeDraftNoteColor(colorId));
+    dispatch(draftChangeNoteColor(colorId));
 
-    // FIX: should editCurrentNote but without resetDraft
+    // FIX: should editCurrentNote but without draftReset
     if (!noteEditShow && !noteAddShow) dispatch(editCurrentNote(false));
   };
 

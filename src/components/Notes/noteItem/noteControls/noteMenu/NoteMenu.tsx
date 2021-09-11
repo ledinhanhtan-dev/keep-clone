@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { deleteCurrentNote, editCurrentNote } from 'src/store/thunks/notesThunks';
 import { hideNoteEdit, hideNoteMenu, selectUIState } from 'src/store/slices/uiSlice';
-import { resetDraft, selectDraft, toggleDraftNoteType } from 'src/store/slices/draftSlice';
+import { draftReset, selectDraft, draftToggleNoteType } from 'src/store/slices/draftSlice';
 import useOnClickOutside from 'src/hooks/useOnClickOutside';
 import MenuItem from './MenuItem';
 
@@ -22,7 +22,7 @@ const NoteMenu: React.FC = () => {
   // Hide NoteMenu and Edit
   const hideNoteMenuHandler = () => {
     dispatch(hideNoteMenu());
-    dispatch(resetDraft()); // Could let the Menu Item call the function
+    dispatch(draftReset()); // Could let the Menu Item call the function
     if (noteEditShow) dispatch(hideNoteEdit());
   };
 
@@ -34,8 +34,7 @@ const NoteMenu: React.FC = () => {
 
   const { noteType } = useAppSelector(selectDraft).draftNote.noteData;
   const toggleNoteTypeHandler = () => {
-    dispatch(toggleDraftNoteType());
-
+    dispatch(draftToggleNoteType());
     if (!noteEditShow && !noteAddShow) dispatch(editCurrentNote());
     dispatch(hideNoteMenu());
   };

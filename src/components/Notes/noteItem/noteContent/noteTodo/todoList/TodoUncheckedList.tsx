@@ -2,7 +2,7 @@ import React from 'react';
 import ITodo from 'src/interfaces/ITodo';
 import { Droppable } from 'react-beautiful-dnd';
 import { NoteVariation } from 'src/interfaces/INote';
-import TodoDraggable from '../todoItem/TodoDraggable';
+import TodoDraggable from '../TodoItem/TodoDraggable';
 
 import classes from './TodoUncheckedList.module.scss';
 
@@ -19,7 +19,7 @@ const TodoUncheckedList: React.FC<IProps> = props => {
       {provided => (
         <div className={classes.list} ref={provided.innerRef} {...provided.droppableProps}>
           {todos.map((todo, index) => (
-            <TodoDraggable key={todo.id} todo={todo} index={index} variation={variation} />
+            <TodoDraggable key={todo._id} todo={todo} index={index} variation={variation} />
           ))}
 
           {provided.placeholder}

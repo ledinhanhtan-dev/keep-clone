@@ -1,6 +1,6 @@
 import React from 'react';
 import ITodo from 'src/interfaces/ITodo';
-import TodoItem from '../todoItem/TodoItem';
+import TodoItem from '../TodoItem/TodoItem';
 import { NoteVariation } from 'src/interfaces/INote';
 
 import classes from './TodoCheckedList.module.scss';
@@ -17,7 +17,7 @@ const TodoCheckedList: React.FC<IProps> = props => {
     <div className={classes.list}>
       {todos.map((todo, index) => (
         <TodoItem
-          key={todo.id}
+          key={todo._id}
           todo={todo}
           index={index}
           variation={variation}

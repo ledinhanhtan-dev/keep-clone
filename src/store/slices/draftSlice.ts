@@ -1,13 +1,13 @@
-import { AppThunk, RootState } from '../store';
-import { registerAddedTodoId } from './uiSlice';
+import { RootState } from '../store';
 import { createSlice } from '@reduxjs/toolkit';
-import { EMPTY_NOTE } from 'src/interfaces/INote';
+import { ColorId, EMPTY_NOTE } from 'src/interfaces/INote';
 import { noteHelper } from 'src/helpers/noteHelper';
 import INote from 'src/interfaces/INote';
+import ITodo from 'src/interfaces/ITodo';
 
 interface Draft {
-  isTouched: boolean;
   draftNote: INote;
+  isTouched: boolean;
 }
 
 const initialState: Draft = {
@@ -21,73 +21,76 @@ export const draftSlice = createSlice({
   initialState,
   reducers: {
     // Title
-    writeDraftTitle: (state, action) => {
-      state.draftNote.title = action.payload;
+    draftWriteTitle: (state, action) => {
+      state.draftNote.title = action.payload as string;
       if (!state.isTouched) state.isTouched = true;
       if (state.draftNote.title === '' && state.draftNote.text === '') state.isTouched = false;
     },
 
     // Text
-    writeDraftText: (state, action) => {
-      state.draftNote.text = action.payload;
+    draftWriteText: (state, action) => {
+      state.draftNote.text = action.payload as string;
       if (!state.isTouched) state.isTouched = true;
       if (state.draftNote.title === '' && state.draftNote.text === '') state.isTouched = false;
     },
 
     // Todo
-    writeDraftTodo: (state, action) => {
-      const todoData = action.payload;
+    draftWriteTodo: (state, action) => {
+      const todoData = action.payload as ITodo;
+
       if (!state.isTouched) state.isTouched = true;
-      const index = state.draftNote.todos.findIndex(todo => todo.id === todoData.id);
+      const index = state.draftNote.todos.findIndex(todo => todo._id === todoData._id);
+
       state.draftNote.todos[index] = todoData;
     },
 
-    addDraftTodo: (state, action) => {
+    draftAddTodo: (state, action) => {
       if (!state.isTouched) state.isTouched = true;
-      state.draftNote.todos.push(action.payload);
+      state.draftNote.todos.push(action.payload as ITodo);
     },
 
-    deleteDraftTodo: (state, action) => {
-      const todoId = action.payload;
+    draftDeleteTodo: (state, action) => {
+      const todoId = action.payload as string;
       if (!state.isTouched) state.isTouched = true;
-      state.draftNote.todos = state.draftNote.todos.filter(todo => todo.id !== todoId);
+      state.draftNote.todos = state.draftNote.todos.filter(todo => todo._id !== todoId);
     },
 
-    setDraftTodo: (state, action) => {
+    draftSetTodo: (state, action) => {
       if (!state.isTouched) state.isTouched = true;
-      state.draftNote.todos = action.payload;
+      state.draftNote.todos = action.payload as ITodo[];
     },
 
-    toggleDraftTodoDropdownActive: state => {
+    draftToggleTodoDropdown: state => {
       if (!state.isTouched) state.isTouched = true;
       state.draftNote.noteData.isTodoDropdownActive =
         !state.draftNote.noteData.isTodoDropdownActive;
     },
 
     // Draft
-    loadDraft: (state, action) => {
-      state.draftNote = action.payload;
+    draftLoad: (state, action) => {
+      state.draftNote = action.payload as INote;
     },
 
-    resetDraft: state => {
-      state.isTouched = initialState.isTouched;
-      state.draftNote = initialState.draftNote;
+    draftReset: state => {
+      state = initialState;
     },
 
-    changeDraftNoteColor: (state, action) => {
+    draftChangeNoteColor: (state, action) => {
       if (!state.isTouched) state.isTouched = true;
-      state.draftNote.noteData.noteColor = action.payload;
+      state.draftNote.noteData.noteColor = action.payload as ColorId;
     },
 
-    toggleDraftNoteType: state => {
+    draftToggleNoteType: state => {
       const { draftNote } = state;
       if (!state.isTouched) state.isTouched = true;
 
+      const { _id, text, todos } = draftNote;
+
       if (draftNote.noteData.noteType === 'text') {
-        draftNote.todos = noteHelper.convertToNoteTodo(draftNote.text);
+        draftNote.todos = noteHelper.convertToNoteTodo(_id, text);
         draftNote.noteData.noteType = 'todo';
       } else {
-        draftNote.text = noteHelper.convertToNoteText(draftNote.todos);
+        draftNote.text = noteHelper.convertToNoteText(todos);
         draftNote.noteData.noteType = 'text';
       }
     },
@@ -95,31 +98,20 @@ export const draftSlice = createSlice({
 });
 
 export const {
-  writeDraftTitle,
-  writeDraftText,
-  writeDraftTodo,
-  addDraftTodo,
-  deleteDraftTodo,
-  setDraftTodo,
-  toggleDraftTodoDropdownActive,
+  draftWriteTitle,
+  draftWriteText,
+  draftWriteTodo,
+  draftAddTodo,
+  draftDeleteTodo,
+  draftSetTodo,
+  draftToggleTodoDropdown,
 
-  loadDraft,
-  resetDraft,
-  toggleDraftNoteType,
-  changeDraftNoteColor,
+  draftLoad,
+  draftReset,
+  draftToggleNoteType,
+  draftChangeNoteColor,
 } = draftSlice.actions;
 
 export const selectDraft = (state: RootState) => state.draft;
 
 export default draftSlice.reducer;
-
-export const addDraftTodoAndRegisterId =
-  (text: string): AppThunk =>
-  (dispatch, getState) => {
-    const { id: currentNoteId, todos } = getState().draft.draftNote;
-    const nextTodoId = noteHelper.generateNextTodoId(currentNoteId, todos);
-    console.log(nextTodoId);
-
-    dispatch(registerAddedTodoId(nextTodoId));
-    dispatch(addDraftTodo({ id: nextTodoId, checked: false, text }));
-  };

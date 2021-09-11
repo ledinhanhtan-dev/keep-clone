@@ -1,20 +1,20 @@
 import React from 'react';
 import { useAppDispatch } from 'src/store/hooks';
 import { NoteVariation } from 'src/interfaces/INote';
-import { setDraftTodo, toggleDraftTodoDropdownActive } from 'src/store/slices/draftSlice';
+import { draftSetTodo, draftToggleTodoDropdown } from 'src/store/slices/draftSlice';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import TodoUncheckedList from './todoList/TodoUncheckedList';
-import TodoCheckedList from './todoList/TodoCheckedList';
-import TodoDropdown from './todoDropdown/TodoDropdown';
+import TodoUncheckedList from './TodoList/TodoUncheckedList';
+import TodoCheckedList from './TodoList/TodoCheckedList';
+import TodoDropdown from './TodoDropdown/TodoDropdown';
 import ITodo from 'src/interfaces/ITodo';
-import TodoAdd from './todoAdd/TodoAdd';
+import TodoAdd from './TodoAdd/TodoAdd';
 
 import classes from './NoteTodo.module.scss';
 
 interface IProps {
   todos: ITodo[];
-  isDropdownActive: boolean;
   variation: NoteVariation;
+  isDropdownActive: boolean;
 }
 
 const NoteTodo: React.FC<IProps> = props => {
@@ -37,11 +37,11 @@ const NoteTodo: React.FC<IProps> = props => {
 
     // Re-ordering:
     const editedTodos = [...uncheckedTodos];
-    const draggingTodo = editedTodos.find(todo => todo.id === draggableId)!;
+    const draggingTodo = editedTodos.find(todo => todo._id === draggableId)!;
     editedTodos.splice(source.index, 1);
     editedTodos.splice(destination.index, 0, draggingTodo);
 
-    dispatch(setDraftTodo([...editedTodos, ...checkedTodos]));
+    dispatch(draftSetTodo([...editedTodos, ...checkedTodos]));
   };
 
   return (
@@ -56,7 +56,7 @@ const NoteTodo: React.FC<IProps> = props => {
         <TodoDropdown
           active={isDropdownActive}
           checkedTodosLength={checkedTodos.length}
-          onClick={() => dispatch(toggleDraftTodoDropdownActive())}
+          onClick={() => dispatch(draftToggleTodoDropdown())}
         />
       )}
 

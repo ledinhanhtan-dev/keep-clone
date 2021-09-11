@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { useAppDispatch } from 'src/store/hooks';
-import { writeDraftTitle } from 'src/store/slices/draftSlice';
+import { draftWriteTitle } from 'src/store/slices/draftSlice';
 import { NoteVariation } from 'src/interfaces/INote';
 
 import classes from './NoteTitle.module.scss';
@@ -17,7 +17,7 @@ const NoteTitle: React.FC<IProps> = props => {
   const dispatch = useAppDispatch();
 
   const titleChangeHandler = (e: eInput) => {
-    dispatch(writeDraftTitle(e.target.value));
+    dispatch(draftWriteTitle(e.target.value));
   };
 
   let variationClass = '';

@@ -1,4 +1,4 @@
 export default interface IImage {
-  id: string;
+  _id: string;
   path: string;
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import NoteSwitch from 'src/components/Notes/noteAdd/NoteSwitch';
-import NoteEdit from 'src/components/Notes/noteEdit/NoteEdit';
-import ColorMenu from 'src/components/Notes/noteItem/noteControls/colorMenu/ColorMenu';
-import NoteMenu from 'src/components/Notes/noteItem/noteControls/noteMenu/NoteMenu';
-import NoteList from 'src/components/Notes/noteList/NoteList';
+import NoteSwitch from 'src/components/Notes/NoteAdd/NoteSwitch';
+import NoteEdit from 'src/components/Notes/NoteEdit/NoteEdit';
+import ColorMenu from 'src/components/Notes/NoteItem/NoteControls/colorMenu/ColorMenu';
+import NoteMenu from 'src/components/Notes/NoteItem/NoteControls/noteMenu/NoteMenu';
+import NoteList from 'src/components/Notes/NoteList/NoteList';
 import PortalOverLay from 'src/components/UI/Portals/PortalOverlay';
 
 import classes from './Main.module.scss';

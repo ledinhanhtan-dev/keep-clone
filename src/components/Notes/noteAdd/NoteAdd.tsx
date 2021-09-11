@@ -5,7 +5,7 @@ import { hideNoteAddAndResetDraft, selectColorMenu, selectNoteMenu } from 'src/s
 import { selectDraft } from 'src/store/slices/draftSlice';
 import { addCurrentNote } from 'src/store/thunks/notesThunks';
 import useOnClickOutside from 'src/hooks/useOnClickOutside';
-import NoteItem from '../noteItem/NoteItem';
+import NoteItem from '../NoteItem/NoteItem';
 
 import styles from './NoteAdd.module.scss';
 

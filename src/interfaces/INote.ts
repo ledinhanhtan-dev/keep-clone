@@ -12,7 +12,7 @@ interface INoteData {
 }
 
 export default interface INote {
-  id: string;
+  _id: string;
   title: string;
   text: string;
   todos: ITodo[];
@@ -24,7 +24,7 @@ export default interface INote {
 export type NoteVariation = 'item' | 'add' | 'edit';
 
 export const EMPTY_NOTE: INote = {
-  id: 'empty',
+  _id: '',
   title: '',
   text: '',
   todos: [] as ITodo[],

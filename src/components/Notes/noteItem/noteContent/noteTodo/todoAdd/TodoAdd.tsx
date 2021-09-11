@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { addDraftTodoAndRegisterId } from 'src/store/slices/draftSlice';
+import { draftAddTodoAndRegisterId } from 'src/store/thunks/draftThunks';
 import { useAppDispatch } from 'src/store/hooks';
 import Svg from 'src/components/UI/Svg/Svg';
 
@@ -23,7 +23,7 @@ const TodoAdd: React.FC<ITodoAddProps> = props => {
 
   const textChangeHandler = (e: eInput) => {
     setText('');
-    dispatch(addDraftTodoAndRegisterId(e.target.value));
+    dispatch(draftAddTodoAndRegisterId(e.target.value));
   };
 
   return (

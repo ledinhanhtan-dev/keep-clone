@@ -1,5 +1,5 @@
 import React from 'react';
-import { resetDraft } from 'src/store/slices/draftSlice';
+import { draftReset } from 'src/store/slices/draftSlice';
 import { addCurrentNote, editCurrentNote } from 'src/store/thunks/notesThunks';
 import {
   hideNoteAddAndResetDraft,
@@ -30,7 +30,7 @@ const ButtonSquare: React.FC<IProps> = props => {
       dispatch(resetHiddenNoteId());
       dispatch(editCurrentNote());
       dispatch(hideNoteEdit());
-      dispatch(resetDraft());
+      dispatch(draftReset());
     }
   };
 

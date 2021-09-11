@@ -12,7 +12,7 @@ const NoteLabel: React.FC<IProps> = props => {
   return (
     <div className={classes.labels}>
       {props.labels.length > 0 &&
-        props.labels.map(label => <Label key={label.id} title={label.title} />)}
+        props.labels.map(label => <Label key={label._id} title={label.title} />)}
     </div>
   );
 };

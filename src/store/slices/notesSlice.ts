@@ -1,54 +1,53 @@
+import { RootState } from '../store';
 import INote from 'src/interfaces/INote';
 import { createSlice } from '@reduxjs/toolkit';
-import { DUMMY_NOTES } from 'src/constants/constants';
-import { RootState } from '../store';
 
 export interface NotesState {
   notes: INote[];
-  status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState: NotesState = {
-  status: 'idle',
-  notes: DUMMY_NOTES,
+  notes: [],
 };
 
 export const notesSlice = createSlice({
   name: 'notes',
   initialState,
   reducers: {
+    getNotes: (state, action) => {
+      state.notes = action.payload;
+    },
+
     addNote: (state, action) => {
       state.notes.push(action.payload);
     },
 
     editNote: (state, action) => {
-      const index = state.notes.findIndex(note => note.id === action.payload.id);
-      state.notes[index] = action.payload;
+      const editedNote = action.payload as INote;
+
+      const index = state.notes.findIndex(note => note._id === editedNote._id);
+      state.notes[index] = editedNote;
     },
 
     deleteNote: (state, action) => {
-      const id = action.payload;
-      state.notes = state.notes.filter(note => note.id !== id);
+      const noteId = action.payload;
+      state.notes = state.notes.filter(note => note._id !== noteId);
     },
 
     toggleTodoById: (state, action) => {
-      const noteId = action.payload.split('/')[0];
-      const todoId = action.payload;
+      const { noteId, todoId } = action.payload;
 
       const targetedTodo = state.notes
-        .find(note => note.id === noteId)!
-        .todos.find(todo => todo.id === todoId)!;
+        .find(note => note._id === noteId)!
+        .todos.find(todo => todo._id === todoId)!;
 
       targetedTodo.checked = !targetedTodo.checked;
     },
   },
 });
 
-// Public action
-export const { addNote, editNote, deleteNote, toggleTodoById } = notesSlice.actions;
+export const { getNotes, addNote, editNote, deleteNote, toggleTodoById } = notesSlice.actions;
+
 export const selectNotes = (state: RootState) => state.notes.notes;
 
-// Reducer
 export default notesSlice.reducer;
-
-// Thunk

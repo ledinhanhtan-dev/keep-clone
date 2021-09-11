@@ -1,7 +1,8 @@
 export type TodoType = 'item' | 'new' | 'dropdown';
 
 export default interface ITodo {
-  id: string;
-  checked: boolean;
+  _id: string;
   text: string;
+  checked: boolean;
+  parentNote: string;
 }

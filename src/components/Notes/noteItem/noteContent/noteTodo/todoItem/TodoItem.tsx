@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useEffect, useRef } from 'react';
-import { deleteDraftTodo, writeDraftTodo } from 'src/store/slices/draftSlice';
+import { draftDeleteTodo, draftWriteTodo } from 'src/store/slices/draftSlice';
 import { resetAddedTodoId, selectUIState } from 'src/store/slices/uiSlice';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
+import { toggleTodoCurrentNote } from 'src/store/thunks/notesThunks';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { toggleTodoById } from 'src/store/slices/notesSlice';
 import { NoteVariation } from 'src/interfaces/INote';
 import Button from 'src/components/UI/Button/Button';
 import ITodo from 'src/interfaces/ITodo';
@@ -25,7 +25,7 @@ interface IProps {
 const TodoItem: React.FC<IProps> = props => {
   const dispatch = useAppDispatch();
   const { todo, variation, isDragging, dragHandleProps } = props;
-  const { id, checked, text } = todo;
+  const { _id, parentNote, checked, text } = todo;
 
   // Focus on the last, recently added todo right after
   const todoTextRef = useRef<HTMLInputElement>(null);
@@ -33,11 +33,11 @@ const TodoItem: React.FC<IProps> = props => {
   useEffect(() => {
     if (text.length === 0 && variation === 'add') todoTextRef.current?.focus();
 
-    if (id === recentlyAddedTodoId) {
+    if (_id === recentlyAddedTodoId) {
       todoTextRef.current?.focus();
       dispatch(resetAddedTodoId());
     }
-  }, [id, text, variation, recentlyAddedTodoId, dispatch]);
+  }, [_id, text, variation, recentlyAddedTodoId, dispatch]);
 
   // Remove focus when dragging todo
   useEffect(() => {
@@ -45,26 +45,28 @@ const TodoItem: React.FC<IProps> = props => {
   }, [isDragging]);
 
   const checkedChangedHandler = (bangedChecked: boolean) => {
-    if (variation === 'item') dispatch(toggleTodoById(id));
-    else dispatch(writeDraftTodo({ id, checked: bangedChecked, text }));
+    // FIX: ALSO EDIT CURRENT NOTE
+    if (variation === 'item') dispatch(toggleTodoCurrentNote(parentNote, _id));
+    else dispatch(draftWriteTodo({ ...todo, checked: bangedChecked }));
   };
 
   const textChangeHandler = (e: eInput) => {
-    dispatch(writeDraftTodo({ id, checked, text: e.target.value }));
+    dispatch(draftWriteTodo({ ...todo, text: e.target.value }));
   };
 
-  const baseClass = classes.item;
   let draggingClass = '';
   let variationClass = '';
   if (isDragging) draggingClass = classes.dragging;
   if (variation === 'edit') variationClass = classes.edit;
 
+  const classList = `${classes.item} ${draggingClass} ${variationClass}`;
+
   return (
-    <div className={`${baseClass} ${draggingClass} ${variationClass}`}>
+    <div className={classList}>
       <TodoGrab
         className={classes.grab}
-        display={variation === 'edit' && !checked}
         dragHandleProps={dragHandleProps}
+        display={variation !== 'item' && !checked}
       />
 
       <TodoCheckbox
@@ -88,7 +90,7 @@ const TodoItem: React.FC<IProps> = props => {
           iconId="x"
           size="smol"
           className={classes.delete}
-          onClick={() => dispatch(deleteDraftTodo(todo.id))}
+          onClick={() => dispatch(draftDeleteTodo(todo._id))}
         />
       )}
     </div>

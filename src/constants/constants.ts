@@ -1,32 +1,33 @@
-import INote from 'src/interfaces/INote';
-import image1Path from 'src/assets/images/image-1.jpg';
-import image2Path from 'src/assets/images/image-2.jpg';
+// import INote from 'src/interfaces/INote';
+// import image1Path from 'src/assets/images/image-1.jpg';
+// import image2Path from 'src/assets/images/image-2.jpg';
+// import { noteHelper } from 'src/helpers/noteHelper';
 
-const note1: INote = {
-  id: 'nt1',
-  title: 'Gentek',
-  text: 'Citizen',
-  labels: [
-    { id: 'nt1/lb1', title: 'First' },
-    { id: 'nt1/lb2', title: 'Second' },
-    { id: 'nt1/lb3', title: 'Third' },
-  ],
-  images: [
-    { id: 'nt1/im1', path: image1Path },
-    { id: 'nt1/im2', path: image2Path },
-  ],
-  todos: [
-    { id: 'nt1/td1', checked: false, text: '1' },
-    { id: 'nt1/td2', checked: false, text: '2' },
-    { id: 'nt1/td3', checked: false, text: '3' },
-    { id: 'nt1/td4', checked: false, text: '4' },
-  ],
-  noteData: {
-    isTodoDropdownActive: false,
-    noteType: 'todo',
-    noteColor: 'default',
-  },
-};
+// const note1: INote = {
+//   _id: noteHelper.generateId(),
+//   title: 'Gentek',
+//   text: 'Citizen',
+//   labels: [
+//     { _id: noteHelper.generateId(), title: 'First' },
+//     { _id: noteHelper.generateId(), title: 'Second' },
+//     { _id: noteHelper.generateId(), title: 'Third' },
+//   ],
+//   images: [
+//     { _id: noteHelper.generateId(), path: image1Path },
+//     { _id: noteHelper.generateId(), path: image2Path },
+//   ],
+//   todos: [
+//     { _id: noteHelper.generateId(), checked: false, text: '1' },
+//     { _id: noteHelper.generateId(), checked: false, text: '2' },
+//     { _id: noteHelper.generateId(), checked: false, text: '3' },
+//     { _id: noteHelper.generateId(), checked: false, text: '4' },
+//   ],
+//   noteData: {
+//     isTodoDropdownActive: false,
+//     noteType: 'todo',
+//     noteColor: 'default',
+//   },
+// };
 
 // const note2 = {
 //   id: 'nt2',
@@ -55,4 +56,4 @@ const note1: INote = {
 //   },
 // };
 
-export const DUMMY_NOTES = [note1];
+export const DUMMY_NOTES = [];

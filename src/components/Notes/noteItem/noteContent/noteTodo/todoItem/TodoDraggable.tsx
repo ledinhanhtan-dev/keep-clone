@@ -14,7 +14,7 @@ const TodoDraggable: React.FC<IProps> = props => {
   const { todo, index } = props;
 
   return (
-    <Draggable draggableId={todo.id} index={index}>
+    <Draggable draggableId={todo._id} index={index}>
       {(provided, snapshot) => (
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <TodoItem

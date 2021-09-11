@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppSelector } from 'src/store/hooks';
 import { selectNotes } from 'src/store/slices/notesSlice';
-import NoteItem from '../noteItem/NoteItem';
+import NoteItem from '../NoteItem/NoteItem';
 
 import classes from './NoteList.module.scss';
 
@@ -12,7 +12,7 @@ const NoteList: React.FC = () => {
   return (
     <div className={classes.list}>
       {reversedNotes.map(note => (
-        <NoteItem key={note.id} note={note} variation="item" />
+        <NoteItem key={note._id} note={note} variation="item" />
       ))}
     </div>
   );

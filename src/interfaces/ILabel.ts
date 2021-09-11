@@ -1,4 +1,4 @@
 export default interface ILabel {
-  id: string;
+  _id: string;
   title: string;
 }

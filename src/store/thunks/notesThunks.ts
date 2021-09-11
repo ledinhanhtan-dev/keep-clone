@@ -1,25 +1,42 @@
+import * as api from 'src/api';
 import { AppThunk } from '../store';
-import { resetDraft } from '../slices/draftSlice';
-import { noteHelper } from 'src/helpers/noteHelper';
-import { addNote, deleteNote, editNote } from '../slices/notesSlice';
+import { draftReset } from '../slices/draftSlice';
+import { addNote, deleteNote, editNote, getNotes, toggleTodoById } from '../slices/notesSlice';
+
+export const fetchNotes = (): AppThunk => async (dispatch, getState) => {
+  const notes = await api.getNotes();
+  dispatch(getNotes(notes));
+};
 
 export const addCurrentNote = (): AppThunk => (dispatch, getState) => {
   const { isTouched, draftNote } = getState().draft;
   if (!isTouched) return;
-  const { notes } = getState().notes;
-  const newNote = { ...draftNote, id: noteHelper.generateNextNoteId(notes) };
-  dispatch(addNote(newNote));
+
+  api.addNote(draftNote);
+  dispatch(addNote(draftNote));
 };
 
 export const editCurrentNote =
-  (alsoReset: boolean = true): AppThunk =>
+  (reset: boolean = true): AppThunk =>
   (dispatch, getState) => {
     const { isTouched, draftNote } = getState().draft;
-    if (isTouched) dispatch(editNote(draftNote));
-    if (alsoReset) dispatch(resetDraft());
+    if (!isTouched) return;
+
+    dispatch(editNote(draftNote));
+    api.editNote(draftNote._id, draftNote);
+
+    if (reset) dispatch(draftReset()); // Reset must be executed at the end!
+  };
+
+export const toggleTodoCurrentNote =
+  (noteId: string, todoId: string): AppThunk =>
+  dispatch => {
+    api.toggleTodo(noteId, todoId);
+    dispatch(toggleTodoById({ noteId, todoId }));
   };
 
 export const deleteCurrentNote = (): AppThunk => (dispatch, getState) => {
-  const { id } = getState().draft.draftNote;
-  dispatch(deleteNote(id));
+  const { _id } = getState().draft.draftNote;
+  dispatch(deleteNote(_id));
+  api.deleteNote(_id!);
 };

@@ -4,7 +4,7 @@ import { editCurrentNote } from 'src/store/thunks/notesThunks';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { hideNoteEdit, resetHiddenNoteId, selectNoteEdit } from 'src/store/slices/uiSlice';
 import Backdrop from 'src/components/UI/Portals/Backdrop';
-import NoteItem from '../noteItem/NoteItem';
+import NoteItem from '../NoteItem/NoteItem';
 
 import classes from './NoteEdit.module.scss';
 

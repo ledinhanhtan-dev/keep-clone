@@ -1,7 +1,8 @@
 import React from 'react';
 import { useAppDispatch } from 'src/store/hooks';
 import { EMPTY_NOTE } from 'src/interfaces/INote';
-import { loadDraft, toggleDraftNoteType } from 'src/store/slices/draftSlice';
+import { noteHelper } from 'src/helpers/noteHelper';
+import { draftLoad, draftToggleNoteType } from 'src/store/slices/draftSlice';
 import { showNoteAdd } from 'src/store/slices/uiSlice';
 import Button from 'src/components/UI/Button/Button';
 import Card from 'src/components/UI/Card/Card';
@@ -10,13 +11,14 @@ import classes from './NoteEntry.module.scss';
 
 const NoteEntry: React.FC = () => {
   const dispatch = useAppDispatch();
+
   const showNoteAddHandler = () => {
+    dispatch(draftLoad({ ...EMPTY_NOTE, _id: noteHelper.generateObjectId() }));
     dispatch(showNoteAdd());
   };
 
   const newListClickHandler = () => {
-    dispatch(loadDraft(EMPTY_NOTE));
-    dispatch(toggleDraftNoteType());
+    dispatch(draftToggleNoteType());
     dispatch(showNoteAdd());
   };
 
