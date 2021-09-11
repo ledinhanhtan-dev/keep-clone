@@ -1,11 +1,13 @@
-import { MouseEvent } from 'react';
-import ITodo from 'src/interfaces/ITodo';
-import { ColorId } from 'src/interfaces/INote';
 import { ObjectId } from 'bson';
+import { MouseEvent } from 'react';
+import INote, { ColorId, INoteData } from 'src/interfaces/INote';
+import { EMPTY_NOTE } from 'src/constants/constants';
+import ITodo from 'src/interfaces/ITodo';
 
 interface INoteHelper {
   generateObjectId: () => string;
   generateColorTitle: (colorId: ColorId) => string;
+  generateEmptyNote: (noteType: 'text' | 'todo') => INote;
 
   convertToNoteText: (todos: ITodo[]) => string;
   convertToNoteTodo: (noteId: string, text: string) => ITodo[];
@@ -15,6 +17,18 @@ interface INoteHelper {
 }
 
 class NoteHelper implements INoteHelper {
+  generateEmptyNote(noteType: 'text' | 'todo') {
+    const _id = this.generateObjectId();
+
+    const noteData: INoteData = {
+      noteType,
+      noteColor: 'default',
+      isDropdownActive: false,
+    };
+
+    return { ...EMPTY_NOTE, _id, noteData };
+  }
+
   generateObjectId() {
     return new ObjectId().toHexString();
   }
@@ -57,3 +71,50 @@ class NoteHelper implements INoteHelper {
 }
 
 export const noteHelper = new NoteHelper();
+
+const reader = new FileReader();
+
+const recursion = (files: File[], arr: string[]) => {
+  if (files.length < 1) return arr;
+
+  reader.onloadend = () => {
+    arr.push(reader.result as string);
+    recursion(files, arr);
+    console.log(arr);
+  };
+
+  reader.readAsDataURL(files.pop() as Blob);
+};
+
+export const generateEmptyNoteWithImages = (files: FileList) => {
+  // const _id = noteHelper.generateObjectId();
+
+  // console.log(Array.from(files));
+
+  // let images: IImage[] = [];
+
+  // Array.from(files).forEach(file => {
+  //   const reader = new FileReader();
+
+  //   reader.onloadend = () => {
+  //     images.push({
+  //       _id: noteHelper.generateObjectId(),
+  //       preview: reader.result as string,
+  //     });
+
+  //     console.log(images);
+  //   };
+
+  //   reader.readAsDataURL(file);
+  // });
+
+  // console.log('END');
+
+  const arrFiles = Array.from(files);
+
+  recursion(arrFiles, []);
+
+  // console.log(strArr);
+
+  return { ...EMPTY_NOTE };
+};

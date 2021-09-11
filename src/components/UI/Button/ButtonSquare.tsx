@@ -1,11 +1,7 @@
 import React from 'react';
 import { draftReset } from 'src/store/slices/draftSlice';
 import { addCurrentNote, editCurrentNote } from 'src/store/thunks/notesThunks';
-import {
-  hideNoteAddAndResetDraft,
-  hideNoteEdit,
-  resetHiddenNoteId,
-} from 'src/store/slices/uiSlice';
+import { hideNoteAdd, hideNoteEdit, resetHiddenNoteId } from 'src/store/slices/uiSlice';
 import { NoteVariation } from 'src/interfaces/INote';
 import { useAppDispatch } from 'src/store/hooks';
 
@@ -23,7 +19,7 @@ const ButtonSquare: React.FC<IProps> = props => {
   const clickHandler = () => {
     if (variation === 'add') {
       dispatch(addCurrentNote());
-      dispatch(hideNoteAddAndResetDraft());
+      dispatch(hideNoteAdd());
     }
 
     if (variation === 'edit') {

@@ -1,17 +1,19 @@
-import React from 'react';
-import { useAppSelector } from 'src/store/hooks';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { selectNotes } from 'src/store/slices/notesSlice';
+import { fetchNotes } from 'src/store/thunks/notesThunks';
 import NoteItem from '../NoteItem/NoteItem';
 
 import classes from './NoteList.module.scss';
 
 const NoteList: React.FC = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => dispatch(fetchNotes()), [dispatch]);
   const notes = useAppSelector(selectNotes);
-  const reversedNotes = [...notes].reverse();
 
   return (
     <div className={classes.list}>
-      {reversedNotes.map(note => (
+      {notes.map(note => (
         <NoteItem key={note._id} note={note} variation="item" />
       ))}
     </div>

@@ -13,16 +13,15 @@ interface IProps {
 const TodoCheckbox: React.FC<IProps> = props => {
   const { checked, variation, onCheckedChange } = props;
 
-  const baseClass = classes.checkbox;
-
-  let variationClass = '';
-  if (variation === 'edit') variationClass = classes.edit;
+  let style: {} = {};
+  if (variation !== 'item') style = { left: '1.5rem' };
 
   return (
     <div
       aria-checked
+      style={style}
       role="checkbox"
-      className={`${baseClass} ${variationClass}`}
+      className={classes.checkbox}
       onClick={onCheckedChange.bind(null, !checked)}
     >
       {!checked && <Svg iconId="checkbox" className="checkbox" />}

@@ -17,11 +17,11 @@ const TodoCheckedList: React.FC<IProps> = props => {
     <div className={classes.list}>
       {todos.map((todo, index) => (
         <TodoItem
-          key={todo._id}
           todo={todo}
           index={index}
-          variation={variation}
+          key={todo._id}
           isDragging={false}
+          variation={variation}
           dragHandleProps={undefined}
         />
       ))}

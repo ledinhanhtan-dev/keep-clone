@@ -1,31 +1,39 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useAppSelector } from 'src/store/hooks';
-import { selectTooltip } from 'src/store/slices/uiSlice';
+import PortalTooltips from '../Portals/PortalTooltips';
+import { ITooltip } from 'src/interfaces/ITooltip';
 
 import classes from './Tooltip.module.scss';
 
-const Tooltip: React.FC = () => {
-  const { show, title, top, left } = useAppSelector(selectTooltip);
+interface IProps {
+  tooltip: ITooltip;
+}
+
+const Tooltip: React.FC<IProps> = props => {
+  const [show, setShow] = useState(false);
+  const [width, setWidth] = useState(0);
+  const { title, top, left } = props.tooltip;
   const tooltipRef = useRef<HTMLDivElement>(null);
 
-  // const tooltipWidth = tooltipRef.current?.offsetWidth!;
-  // console.log(tooltipWidth);
-
-  const [width, setWidth] = useState(0);
-
-  // FIX: still catch the previous width
   useEffect(() => {
-    setWidth(tooltipRef.current?.offsetWidth!);
-  }, [show]);
+    try {
+      setWidth(tooltipRef.current!.offsetWidth);
+    } catch (error) {
+      console.log(error);
+      console.warn('Show tooltip happens too fast!');
+    }
 
-  let style: Object = { opacity: '0', right: 0, bottom: 0 };
+    const delayShow = setTimeout(() => setShow(true), 50);
+    return () => clearTimeout(delayShow);
+  }, []);
 
-  if (show) style = { opacity: '1', top: top + 'px', left: left - width / 2 + 'px' };
+  const style = { opacity: show ? '1' : '0', top: top, left: left - width / 2 };
 
   return (
-    <div className={classes.tooltip} ref={tooltipRef} style={style}>
-      {title}
-    </div>
+    <PortalTooltips>
+      <div className={classes.tooltip} ref={tooltipRef} style={style}>
+        {title}
+      </div>
+    </PortalTooltips>
   );
 };
 

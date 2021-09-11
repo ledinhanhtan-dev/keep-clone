@@ -1,8 +1,5 @@
-import React, { MouseEvent, useCallback } from 'react';
+import React, { MouseEvent } from 'react';
 import INote, { NoteVariation } from 'src/interfaces/INote';
-import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { selectNoteAdd, setHiddenNoteId, showNoteEdit } from 'src/store/slices/uiSlice';
-import { noteHelper } from 'src/helpers/noteHelper';
 import NoteTitle from './NoteTitle/NoteTitle';
 import NoteImage from './NoteImage/NoteImage';
 import NoteLabel from './NoteLabel/NoteLabel';
@@ -11,43 +8,29 @@ import NoteText from './NoteText/NoteText';
 
 import classes from './NoteContent.module.scss';
 
+type eDiv = MouseEvent<HTMLDivElement>;
+
 interface IProps {
-  noteContent: INote;
+  note: INote;
   variation: NoteVariation;
+  onClick: (e: eDiv) => void;
 }
 
 const NoteContent: React.FC<IProps> = props => {
-  const dispatch = useAppDispatch();
-  const { variation, noteContent } = props;
-  const noteAddShow = useAppSelector(selectNoteAdd).show;
-  const { _id, title, text, images, todos, labels, noteData } = noteContent;
-
-  const showNoteEditHandler = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
-      const clickedOnCheckbox = noteHelper.isClickedOn(e.target, 'checkbox');
-
-      if (variation === 'item' && !noteAddShow && !clickedOnCheckbox) {
-        dispatch(showNoteEdit());
-        dispatch(setHiddenNoteId(_id));
-      }
-    },
-    [variation, noteAddShow, _id, dispatch]
-  );
+  const { variation, note, onClick } = props;
+  const { title, text, images, todos, labels, noteData } = note;
+  const { noteType, isDropdownActive } = noteData;
 
   return (
-    <div className={classes.content} onClick={showNoteEditHandler}>
+    <div className={classes.content} onClick={onClick}>
       {images.length > 0 && <NoteImage images={images} />}
 
       <NoteTitle title={title} variation={variation} />
 
-      {noteData.noteType === 'text' && <NoteText text={text} variation={variation} />}
+      {noteType === 'text' && <NoteText text={text} variation={variation} />}
 
-      {noteData.noteType === 'todo' && (
-        <NoteTodo
-          todos={todos}
-          variation={variation}
-          isDropdownActive={noteData.isTodoDropdownActive}
-        />
+      {noteType === 'todo' && (
+        <NoteTodo todos={todos} variation={variation} isDropdownActive={isDropdownActive} />
       )}
 
       <NoteLabel labels={labels} />

@@ -1,7 +1,7 @@
 import * as api from 'src/api';
 import { AppThunk } from '../store';
 import { draftReset } from '../slices/draftSlice';
-import { addNote, deleteNote, editNote, getNotes, toggleTodoById } from '../slices/notesSlice';
+import { addNote, deleteNote, editNote, getNotes, toggleTodo } from '../slices/notesSlice';
 
 export const fetchNotes = (): AppThunk => async (dispatch, getState) => {
   const notes = await api.getNotes();
@@ -14,6 +14,8 @@ export const addCurrentNote = (): AppThunk => (dispatch, getState) => {
 
   api.addNote(draftNote);
   dispatch(addNote(draftNote));
+
+  dispatch(draftReset());
 };
 
 export const editCurrentNote =
@@ -32,11 +34,13 @@ export const toggleTodoCurrentNote =
   (noteId: string, todoId: string): AppThunk =>
   dispatch => {
     api.toggleTodo(noteId, todoId);
-    dispatch(toggleTodoById({ noteId, todoId }));
+    dispatch(toggleTodo({ noteId, todoId }));
   };
 
 export const deleteCurrentNote = (): AppThunk => (dispatch, getState) => {
   const { _id } = getState().draft.draftNote;
   dispatch(deleteNote(_id));
   api.deleteNote(_id!);
+
+  dispatch(draftReset());
 };

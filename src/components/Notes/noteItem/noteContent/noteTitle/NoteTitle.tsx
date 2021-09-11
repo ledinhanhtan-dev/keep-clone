@@ -21,11 +21,10 @@ const NoteTitle: React.FC<IProps> = props => {
   };
 
   let variationClass = '';
-  const baseClass = classes.title;
   if (variation === 'edit') variationClass = classes.edit;
   if (variation === 'add') variationClass = classes.add;
 
-  const classList = `${baseClass} ${variationClass}`;
+  const classList = `${classes.title} ${variationClass}`;
 
   return (
     <input

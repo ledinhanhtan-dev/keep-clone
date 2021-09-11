@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useRef } from 'react';
 import { draftDeleteTodo, draftWriteTodo } from 'src/store/slices/draftSlice';
-import { resetAddedTodoId, selectUIState } from 'src/store/slices/uiSlice';
+import { resetAddedTodoId, selectUI } from 'src/store/slices/uiSlice';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import { toggleTodoCurrentNote } from 'src/store/thunks/notesThunks';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
@@ -29,7 +29,7 @@ const TodoItem: React.FC<IProps> = props => {
 
   // Focus on the last, recently added todo right after
   const todoTextRef = useRef<HTMLInputElement>(null);
-  const { recentlyAddedTodoId } = useAppSelector(selectUIState);
+  const { recentlyAddedTodoId } = useAppSelector(selectUI);
   useEffect(() => {
     if (text.length === 0 && variation === 'add') todoTextRef.current?.focus();
 
@@ -57,17 +57,13 @@ const TodoItem: React.FC<IProps> = props => {
   let draggingClass = '';
   let variationClass = '';
   if (isDragging) draggingClass = classes.dragging;
-  if (variation === 'edit') variationClass = classes.edit;
+  if (variation === 'edit' || variation === 'add') variationClass = classes.edit;
 
   const classList = `${classes.item} ${draggingClass} ${variationClass}`;
 
   return (
     <div className={classList}>
-      <TodoGrab
-        className={classes.grab}
-        dragHandleProps={dragHandleProps}
-        display={variation !== 'item' && !checked}
-      />
+      <TodoGrab variation={variation} className={classes.grab} dragHandleProps={dragHandleProps} />
 
       <TodoCheckbox
         checked={checked}

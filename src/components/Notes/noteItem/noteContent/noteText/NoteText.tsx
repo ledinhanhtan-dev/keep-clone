@@ -5,6 +5,8 @@ import { useAppDispatch } from 'src/store/hooks';
 
 import classes from './NoteText.module.scss';
 
+type eInput = ChangeEvent<HTMLInputElement>;
+
 interface IProps {
   text: string;
   variation: NoteVariation;
@@ -19,15 +21,14 @@ const NoteText: React.FC<IProps> = props => {
     variation === 'add' && textInputRef.current?.focus();
   }, [variation]);
 
-  const textChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const textChangeHandler = (e: eInput) => {
     dispatch(draftWriteText(e.target.value));
   };
 
-  const baseClass = classes.text;
   let variationClass = '';
   if (variation === 'edit') variationClass = classes.edit;
 
-  const classList = `${baseClass} ${variationClass}`;
+  const classList = `${classes.text} ${variationClass}`;
 
   return (
     <input

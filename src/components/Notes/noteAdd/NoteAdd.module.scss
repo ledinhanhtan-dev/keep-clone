@@ -1,13 +1,7 @@
-.note-add {
+.add {
   position: relative;
   box-shadow: var(--shadow-double);
   z-index: 4000;
 
   border-radius: var(--radius-amount);
-}
-
-.button-pin {
-  position: absolute;
-  right: 10px;
-  top: 5px;
 }

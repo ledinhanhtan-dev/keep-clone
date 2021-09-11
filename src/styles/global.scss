@@ -1,4 +1,4 @@
-#overlay-root {
+#overlay {
   position: absolute;
   display: flex;
   align-items: center;
@@ -7,20 +7,14 @@
   width: 100%;
 }
 
-#backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 999;
-  background-color: rgba(#202124, 0.7);
+body {
+  background-color: var(--color-default);
 }
 
 input {
   background-color: transparent;
-  font-weight: 500;
   caret-color: white;
+  font-weight: 500;
   width: 100%;
 
   &::placeholder {

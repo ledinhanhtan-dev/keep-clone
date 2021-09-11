@@ -1,7 +1,8 @@
 import { RootState } from '../store';
 import { createSlice } from '@reduxjs/toolkit';
-import { ColorId, EMPTY_NOTE } from 'src/interfaces/INote';
 import { noteHelper } from 'src/helpers/noteHelper';
+import { EMPTY_NOTE } from 'src/constants/constants';
+import { ColorId } from 'src/interfaces/INote';
 import INote from 'src/interfaces/INote';
 import ITodo from 'src/interfaces/ITodo';
 
@@ -62,13 +63,12 @@ export const draftSlice = createSlice({
 
     draftToggleTodoDropdown: state => {
       if (!state.isTouched) state.isTouched = true;
-      state.draftNote.noteData.isTodoDropdownActive =
-        !state.draftNote.noteData.isTodoDropdownActive;
+      state.draftNote.noteData.isDropdownActive = !state.draftNote.noteData.isDropdownActive;
     },
 
     // Draft
     draftLoad: (state, action) => {
-      state.draftNote = action.payload as INote;
+      state.draftNote = action.payload;
     },
 
     draftReset: state => {
@@ -90,7 +90,9 @@ export const draftSlice = createSlice({
         draftNote.todos = noteHelper.convertToNoteTodo(_id, text);
         draftNote.noteData.noteType = 'todo';
       } else {
-        draftNote.text = noteHelper.convertToNoteText(todos);
+        // FIX: ask for confirmation
+        const uncheckedTodos = todos.filter(todo => !todo.checked);
+        draftNote.text = noteHelper.convertToNoteText(uncheckedTodos);
         draftNote.noteData.noteType = 'text';
       }
     },

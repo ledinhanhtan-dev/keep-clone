@@ -1,9 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AppThunk, RootState } from '../store';
-import { draftReset } from './draftSlice';
+import { RootState } from '../store';
 
 interface UIState {
-  tooltip: { show: boolean; title: string; top: number; left: number };
   noteMenu: { show: boolean; top: number; left: number; isFullMenu: boolean };
   colorMenu: { show: boolean; top: number; left: number };
   noteEdit: { show: boolean };
@@ -13,7 +11,6 @@ interface UIState {
 }
 
 const initialState: UIState = {
-  tooltip: { show: false, title: '', top: 0, left: 0 },
   noteMenu: { show: false, top: 0, left: 0, isFullMenu: false },
   colorMenu: { show: false, top: 0, left: 0 },
   noteEdit: { show: false },
@@ -26,16 +23,6 @@ export const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    // Tooltip
-    showTooltip: (state, action) => {
-      const { top } = action.payload;
-      state.tooltip = { ...action.payload, top: top + window.scrollY };
-    },
-
-    hideTooltip: state => {
-      if (state.tooltip.show) state.tooltip.show = false;
-    },
-
     // NoteMenu
     showNoteMenu: (state, action) => {
       const { top } = action.payload;
@@ -89,20 +76,17 @@ export const uiSlice = createSlice({
   },
 });
 
-const { hideNoteAdd } = uiSlice.actions;
-
 // Action creators
 export const {
-  showTooltip,
   showNoteMenu,
   showColorMenu,
   showNoteEdit,
   showNoteAdd,
 
-  hideTooltip,
   hideNoteMenu,
   hideColorMenu,
   hideNoteEdit,
+  hideNoteAdd,
 
   setHiddenNoteId,
   resetHiddenNoteId,
@@ -111,8 +95,7 @@ export const {
 } = uiSlice.actions;
 
 // Selectors
-export const selectUIState = (state: RootState) => state.ui;
-export const selectTooltip = (state: RootState) => state.ui.tooltip;
+export const selectUI = (state: RootState) => state.ui;
 export const selectNoteMenu = (state: RootState) => state.ui.noteMenu;
 export const selectColorMenu = (state: RootState) => state.ui.colorMenu;
 export const selectNoteEdit = (state: RootState) => state.ui.noteEdit;
@@ -121,8 +104,3 @@ export const selectHiddenNoteId = (state: RootState) => state.ui.hiddenNoteItemI
 
 // Reducer
 export default uiSlice.reducer;
-
-export const hideNoteAddAndResetDraft = (): AppThunk => dispatch => {
-  dispatch(hideNoteAdd());
-  dispatch(draftReset());
-};

@@ -34,7 +34,7 @@ export const notesSlice = createSlice({
       state.notes = state.notes.filter(note => note._id !== noteId);
     },
 
-    toggleTodoById: (state, action) => {
+    toggleTodo: (state, action) => {
       const { noteId, todoId } = action.payload;
 
       const targetedTodo = state.notes
@@ -46,7 +46,7 @@ export const notesSlice = createSlice({
   },
 });
 
-export const { getNotes, addNote, editNote, deleteNote, toggleTodoById } = notesSlice.actions;
+export const { getNotes, addNote, editNote, deleteNote, toggleTodo } = notesSlice.actions;
 
 export const selectNotes = (state: RootState) => state.notes.notes;
 

@@ -1,8 +1,8 @@
-import React, { MouseEvent, useEffect } from 'react';
-import { useAppDispatch } from 'src/store/hooks';
-import { hideTooltip, showTooltip } from 'src/store/slices/uiSlice';
+import React, { MouseEvent, useEffect, useState } from 'react';
 import classes from './Button.module.scss';
 import Svg from 'src/components/UI/Svg/Svg';
+import Tooltip from '../Tooltip/Tooltip';
+import { ITooltip } from 'src/interfaces/ITooltip';
 
 interface IProps {
   title: string;
@@ -14,16 +14,16 @@ interface IProps {
 }
 
 const Button: React.FC<IProps> = props => {
-  const dispatch = useAppDispatch();
+  const [tooltip, setTooltip] = useState<ITooltip | null>(null);
   const { title, iconId, size, className, highlight, onClick } = props;
 
   // FIX: button unmounted before dispatch hideTooltip()
-  const mouseLeaveHandler = () => dispatch(hideTooltip());
+  const mouseLeaveHandler = () => setTooltip(null);
   const mouseEnterHandler = (e: MouseEvent) => {
     const button = (e.target as HTMLElement).closest('button')!;
     const { bottom, left, width } = button.getBoundingClientRect();
 
-    dispatch(showTooltip({ show: true, title, top: bottom, left: left + width / 2 }));
+    setTooltip({ title, top: bottom, left: left + width / 2 });
   };
 
   const classList = `${classes.button} ${classes[size]} ${highlight ? classes.highlight : ''} ${
@@ -34,19 +34,23 @@ const Button: React.FC<IProps> = props => {
   // doesn't matter if the tooltip is shown or not
   useEffect(() => {
     return () => {
-      dispatch(hideTooltip());
+      tooltip && setTooltip(null);
     };
-  }, [dispatch]);
+  }, [tooltip]);
 
   return (
-    <button
-      className={classList}
-      onClick={onClick}
-      onMouseEnter={mouseEnterHandler}
-      onMouseLeave={mouseLeaveHandler}
-    >
-      <Svg iconId={iconId} />
-    </button>
+    <>
+      <button
+        className={classList}
+        onClick={onClick}
+        onMouseEnter={mouseEnterHandler}
+        onMouseLeave={mouseLeaveHandler}
+      >
+        <Svg iconId={iconId} />
+      </button>
+
+      {tooltip && <Tooltip tooltip={tooltip} />}
+    </>
   );
 };
 

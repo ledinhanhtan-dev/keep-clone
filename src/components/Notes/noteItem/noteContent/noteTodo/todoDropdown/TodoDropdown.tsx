@@ -16,6 +16,9 @@ const TodoDropdown: React.FC<IProps> = props => {
 
   const chevronRotate = active ? {} : { transform: 'rotateZ(-90deg)' };
 
+  // FIX: allow user to toggle dropdown in note Item
+  // ===> stop show noteEdit
+
   return (
     <div className={classes.dropdown} onClick={onClick}>
       <div className={classes.chevron} style={chevronRotate}>

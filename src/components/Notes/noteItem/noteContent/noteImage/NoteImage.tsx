@@ -15,7 +15,7 @@ const NoteImage: React.FC<IProps> = props => {
   return (
     <div className={classes.image} style={gridStyle}>
       {images.map(img => (
-        <img key={img._id} src={img.path} alt="user-note" />
+        <img key={img._id} src={img.preview} alt="user-note" />
       ))}
     </div>
   );
